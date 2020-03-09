@@ -2,7 +2,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
+
 import { User } from './user.model';
  
 export interface AuthResponseData {
@@ -19,9 +21,9 @@ export interface AuthResponseData {
 @Injectable({providedIn: 'root'})
 export class AuthService {
     
-    user = new Subject<User>();
+    user = new BehaviorSubject<User>(null);
 
-    constructor(private httpClient: HttpClient){}
+    constructor(private httpClient: HttpClient, private router: Router){}
 
     signup(email : string, password :string){
        return this.httpClient.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCQaIQtxXN-9BtBmRZw2G-xGtz-oAEU5cE', {
@@ -42,6 +44,12 @@ export class AuthService {
         }).pipe(catchError(this.handleError ), tap(resData => {
             this.handleAuth(resData.email, resData.localId, resData.idToken, +resData.expiresIn)
          }));
+    }
+
+
+    logout(){
+        this.user.next(null);
+        this.router.navigate(['./auth']);
     }
 
     private handleAuth (email:string , userId: string ,  token: string , expireIn: number){
