@@ -34,4 +34,4 @@ Using Pure CSS Loader
 using Subject and BehaviorSubject in Rxjs
 Using local storage to store user data and adding auto login method
 adding auto logout after expiration time ended
-
+Using rout gaurd
