@@ -32,3 +32,4 @@ Example of using template approach for Forms
 Using built in firebase auth
 Using Pure CSS Loader
 using Subject and BehaviorSubject in Rxjs
+Using local storage to store user data and adding auto login method
