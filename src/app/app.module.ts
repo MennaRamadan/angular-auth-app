@@ -21,6 +21,9 @@ import { AuthService, AuthResponseData } from './auth/auth.service';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceHolderDirective } from './shared/placeholder/placeholder.directive';
+
 
 @NgModule({
   declarations: [
@@ -36,10 +39,12 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
     RecipeStartComponent,
     RecipeEditComponent,
     AuthComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceHolderDirective
   ],
   imports: [
-BrowserModule,
+  BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -47,6 +52,9 @@ BrowserModule,
   ],
   providers: [ShoppingListService, RecipeService, AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}],
   //using multi is true to allow more than multiInterceptors although using only one
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertComponent //If the project is 9 or higher i will not need for this, Here I till angular to preper this component. any conponent added in routing and module not needed to add here
+  ]
 })
 export class AppModule {}
